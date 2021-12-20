@@ -569,16 +569,21 @@ class TitleState extends MusicBeatState
 			switch (curBeat)
 			{
 				case 4:
-					createCoolText(['Cover by:']);
-					addMoreText('Chimmie');
-				case 7:
-					deleteCoolText();
-					createCoolText(['Coded by:'], 15);
+					createCoolText(['Cover by'], -50);
+					addMoreText('Chimmie', -50);
+					addMoreText('Chart by');
+					addMoreText('niffirg');
+					addMoreText('Fidy50');
+					addMoreText('Kye_VL');
+					addMoreText('and Glitchy');
 				case 9:
-					addMoreText('nintendofan44', 15);
-				case 11:
 					deleteCoolText();
-					createCoolText(['Character owners:'], 15);
+					createCoolText(['Coded by'], 15);
+				case 10:
+					addMoreText('nintendofan44', 15);
+				case 12:
+					deleteCoolText();
+					createCoolText(['Character owners'], 15);
 				case 13:
 					addMoreText('FNF Vs Entity Team', 15);
 				case 15:
