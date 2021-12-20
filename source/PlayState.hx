@@ -266,7 +266,7 @@ class PlayState extends MusicBeatState
 
 	override public function create()
 	{
-		if (SONG.song.toLowerCase() == 'triple-trouble')
+		if (SONG.song.toLowerCase() == 'triple trouble')
 		{
 			daP3Static.frames = Paths.getSparrowAtlas('Phase3Static', 'exe');
 			daP3Static.animation.addByPrefix('P3Static', 'Phase3Static instance 1', 24, false);
@@ -1045,6 +1045,12 @@ class PlayState extends MusicBeatState
 		healthBarBG.visible = !ClientPrefs.hideHud;
 		healthBarBG.xAdd = -4;
 		healthBarBG.yAdd = -4;
+
+		if (SONG.song.toLowerCase() == 'triple trouble')
+		{
+			healthBarBG.alpha = 0.4;
+		}
+
 		add(healthBarBG);
 		if(ClientPrefs.downScroll) healthBarBG.y = 0.11 * FlxG.height;
 
@@ -1053,20 +1059,41 @@ class PlayState extends MusicBeatState
 		healthBar.scrollFactor.set();
 		// healthBar
 		healthBar.visible = !ClientPrefs.hideHud;
-		healthBar.alpha = ClientPrefs.healthBarAlpha;
+
+		if (SONG.song.toLowerCase() == 'triple trouble')
+		{
+			healthBar.alpha = 0.4;
+		} else {
+			healthBar.alpha = ClientPrefs.healthBarAlpha;
+		}
+
 		add(healthBar);
 		healthBarBG.sprTracker = healthBar;
 
 		iconP1 = new HealthIcon(boyfriend.healthIcon, true);
 		iconP1.y = healthBar.y - 75;
 		iconP1.visible = !ClientPrefs.hideHud;
-		iconP1.alpha = ClientPrefs.healthBarAlpha;
+		
+		if (SONG.song.toLowerCase() == 'triple trouble')
+		{
+			iconP1.alpha = 0.4;
+		} else {
+			iconP1.alpha = ClientPrefs.healthBarAlpha;
+		}
+
 		add(iconP1);
 
 		iconP2 = new HealthIcon(dad.healthIcon, false);
 		iconP2.y = healthBar.y - 75;
 		iconP2.visible = !ClientPrefs.hideHud;
-		iconP2.alpha = ClientPrefs.healthBarAlpha;
+		
+		if (SONG.song.toLowerCase() == 'triple trouble')
+		{
+			iconP2.alpha = 0.4;
+		} else {
+			iconP2.alpha = ClientPrefs.healthBarAlpha;
+		}
+
 		add(iconP2);
 		reloadHealthBarColors();
 
@@ -1075,6 +1102,12 @@ class PlayState extends MusicBeatState
 		scoreTxt.scrollFactor.set();
 		scoreTxt.borderSize = 1.25;
 		scoreTxt.visible = !ClientPrefs.hideHud;
+
+		if (SONG.song.toLowerCase() == 'triple trouble')
+		{
+			scoreTxt.alpha = 0.4;
+		}
+
 		add(scoreTxt);
 
 		botplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "BOTPLAY", 32);
@@ -4166,7 +4199,7 @@ class PlayState extends MusicBeatState
 			return;
 		}
 
-		if (curSong.toLowerCase() == 'triple-trouble')
+		if (curSong.toLowerCase() == 'triple trouble')
 		{
 			switch (curStep)
 			{
