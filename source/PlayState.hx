@@ -60,6 +60,7 @@ using StringTools;
 
 class PlayState extends MusicBeatState
 {
+	var noCount:Bool = false;
 	var bgspec:FlxSprite;
 	var daP3Static:FlxSprite = new FlxSprite(0, 0);
 
@@ -271,30 +272,13 @@ class PlayState extends MusicBeatState
 
 	override public function create()
 	{
-		if (SONG.song.toLowerCase() == 'triple trouble')
-		{
-			daP3Static.frames = Paths.getSparrowAtlas('Phase3Static', 'exe');
-			daP3Static.animation.addByPrefix('P3Static', 'Phase3Static instance 1', 24, false);
-			add(daP3Static);
-			daP3Static.animation.play('P3Static');
-			remove(daP3Static);
+		noCount = false;
+		daP3Static.frames = Paths.getSparrowAtlas('Phase3Static', 'exe');
+		daP3Static.animation.addByPrefix('P3Static', 'Phase3Static instance 1', 24, false);
+		add(daP3Static);
+		daP3Static.animation.play('P3Static');
+		remove(daP3Static);
 
-			dad = new Character(DAD_X, DAD_Y, 'sol');
-			add(dad);
-			remove(dad);
-
-			dad = new Character(DAD_X, DAD_Y, 'aldryx');
-			add(dad);
-			remove(dad);
-
-			dad = new Character(DAD_X, DAD_Y, 'agoti');
-			add(dad);
-			remove(dad);
-
-			dad = new Character(DAD_X, DAD_Y, 'niku');
-			add(dad);
-			remove(dad);
-		}
 		#if MODS_ALLOWED
 		Paths.destroyLoadedImages();
 		#end
@@ -1055,7 +1039,7 @@ class PlayState extends MusicBeatState
 		healthBarBG.xAdd = -4;
 		healthBarBG.yAdd = -4;
 
-		if (SONG.song.toLowerCase() == 'triple trouble')
+		if (SONG.song.toLowerCase() == 'triple trouble' || SONG.song.toLowerCase() == 'triple trouble-six')
 		{
 			healthBarBG.alpha = 0.4;
 		}
@@ -1069,7 +1053,7 @@ class PlayState extends MusicBeatState
 		// healthBar
 		healthBar.visible = !ClientPrefs.hideHud;
 
-		if (SONG.song.toLowerCase() == 'triple trouble')
+		if (SONG.song.toLowerCase() == 'triple trouble' || SONG.song.toLowerCase() == 'triple trouble-six')
 		{
 			healthBar.alpha = 0.4;
 		} else {
@@ -1083,7 +1067,7 @@ class PlayState extends MusicBeatState
 		iconP1.y = healthBar.y - 75;
 		iconP1.visible = !ClientPrefs.hideHud;
 		
-		if (SONG.song.toLowerCase() == 'triple trouble')
+		if (SONG.song.toLowerCase() == 'triple trouble' || SONG.song.toLowerCase() == 'triple trouble-six')
 		{
 			iconP1.alpha = 0.4;
 		} else {
@@ -1096,7 +1080,7 @@ class PlayState extends MusicBeatState
 		iconP2.y = healthBar.y - 75;
 		iconP2.visible = !ClientPrefs.hideHud;
 		
-		if (SONG.song.toLowerCase() == 'triple trouble')
+		if (SONG.song.toLowerCase() == 'triple trouble' || SONG.song.toLowerCase() == 'triple trouble-six')
 		{
 			iconP2.alpha = 0.4;
 		} else {
@@ -1112,7 +1096,7 @@ class PlayState extends MusicBeatState
 		scoreTxt.borderSize = 1.25;
 		scoreTxt.visible = !ClientPrefs.hideHud;
 
-		if (SONG.song.toLowerCase() == 'triple trouble')
+		if (SONG.song.toLowerCase() == 'triple trouble' || SONG.song.toLowerCase() == 'triple trouble-six')
 		{
 			scoreTxt.alpha = 0.4;
 		}
@@ -1248,8 +1232,9 @@ class PlayState extends MusicBeatState
 			}
 			seenCutscene = true;
 		} else {
-			if (curSong.toLowerCase() == 'triple trouble')
+			if (curSong.toLowerCase() == 'triple trouble' || curSong.toLowerCase() == 'triple trouble-six')
 			{
+				noCount = true;
 				add(blackScreen);
 				startCircle.loadGraphic(Paths.image('StartScreens/CircleTripleTrouble', 'exe'));
 				startCircle.x += 777;
@@ -1271,7 +1256,11 @@ class PlayState extends MusicBeatState
 					FlxTween.tween(blackScreen, {alpha: 0}, 1);
 				});
 			}
-			startCountdown();
+			switch (curSong)
+			{
+				default:
+					startCountdown();
+			}
 		}
 		RecalculateRating();
 
@@ -1681,14 +1670,12 @@ class PlayState extends MusicBeatState
 					santa.dance(true);
 				}
 
-				switch (swagCounter)
-				{
-					case 0:
-						if (SONG.song.toLowerCase() != 'triple trouble') {
+				if (!noCount) {
+					switch (swagCounter)
+					{
+						case 0:
 							FlxG.sound.play(Paths.sound('intro3' + introSoundsSuffix), 0.6);
-						}
-					case 1:
-						if (SONG.song.toLowerCase() != 'triple trouble') {
+						case 1:
 							countdownReady = new FlxSprite().loadGraphic(Paths.image(introAlts[0]));
 							countdownReady.scrollFactor.set();
 							countdownReady.updateHitbox();
@@ -1708,9 +1695,7 @@ class PlayState extends MusicBeatState
 								}
 							});
 							FlxG.sound.play(Paths.sound('intro2' + introSoundsSuffix), 0.6);
-						}
-					case 2:
-						if (SONG.song.toLowerCase() != 'triple trouble') {
+						case 2:
 							countdownSet = new FlxSprite().loadGraphic(Paths.image(introAlts[1]));
 							countdownSet.scrollFactor.set();
 	
@@ -1729,9 +1714,7 @@ class PlayState extends MusicBeatState
 								}
 							});
 							FlxG.sound.play(Paths.sound('intro1' + introSoundsSuffix), 0.6);
-						}
-					case 3:
-						if (SONG.song.toLowerCase() != 'triple trouble') {
+						case 3:
 							countdownGo = new FlxSprite().loadGraphic(Paths.image(introAlts[2]));
 							countdownGo.scrollFactor.set();
 	
@@ -1752,8 +1735,8 @@ class PlayState extends MusicBeatState
 								}
 							});
 							FlxG.sound.play(Paths.sound('introGo' + introSoundsSuffix), 0.6);
-						}
-					case 4:
+						case 4:
+					}
 				}
 
 				notes.forEachAlive(function(note:Note) {
@@ -4242,7 +4225,7 @@ class PlayState extends MusicBeatState
 			return;
 		}
 
-		if (curSong.toLowerCase() == 'triple trouble')
+		if (curSong.toLowerCase() == 'triple trouble' || curSong.toLowerCase() == 'triple trouble-six')
 		{
 			switch (curStep)
 			{
