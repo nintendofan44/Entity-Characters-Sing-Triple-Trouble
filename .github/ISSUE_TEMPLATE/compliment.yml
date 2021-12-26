@@ -1,0 +1,9 @@
+name: Compliment
+description: Say your opinions about this mod.
+labels: [compliment]
+body:
+  - type: textarea
+    attributes:
+      label: What is your opinion about this mod? (i dont accept angry mfs)
+    validations:
+      required: true
